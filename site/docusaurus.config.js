@@ -13,14 +13,14 @@ const config = {
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
-  url: 'https://grafana.github.io',
+  url: 'https://hendritjipto.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/opentelemetry-workshop/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'grafana', // Usually your GitHub org/user name.
+  organizationName: 'hendritjipto', // Usually your GitHub org/user name.
   projectName: 'opentelemetry-workshop', // Usually your repo name.
 
   onBrokenLinks: 'throw',
