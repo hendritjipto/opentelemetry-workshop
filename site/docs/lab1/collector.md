@@ -16,20 +16,20 @@ An OpenTelemetry Collector acts as a bridge between your applications and your t
 
 :::
 
-For this workshop, we've prepared an Alloy configuration file for you. This configuration will:
+For this workshop, we will use Alloy to send telemetry to Grafana Cloud. Below would be the data flow:
 
 - Receive OTLP signals from your application
 - Send them to Grafana Cloud
 
 Follow these steps:
 
-1.  In the terminal, type the following to copy the example Alloy config file into your persistent workspace:
+1.  In the terminal, type the following:
 
     ```bash
-    cp -r /opt/alloy /home/project/persisted/
+    cd ./source/alloy
     ```
 
-1.  Find the new file `persisted/alloy/config.alloy` in the Explorer pane, and open it. Review the content of the configuration file, noting that:
+1.  Find the file `./source/alloy/config.alloy` in the Explorer pane, and open it. Review the content of the configuration file, noting that:
 
     - There is an `otelcol.receiver.otlp` block, which receives OTLP signals from your application.
 
@@ -43,7 +43,7 @@ Follow these steps:
 
     :::
 
-1.  Find the new file `persisted/alloy/run.sh` in the Explorer pane, and open it.
+1.  Find the new file `./source/alloy/run.sh` in the Explorer pane, and open it.
 
     This script will run Grafana Alloy. You will see that we need to set some environment variables first:
 
@@ -52,42 +52,8 @@ Follow these steps:
     export GRAFANA_CLOUD_OTLP_USERNAME=""
     export GRAFANA_CLOUD_OTLP_PASSWORD=""
     ```
-    
-Let's fill in these variables with the connection details we will get from Grafana Cloud in the next step.
+4. **⚠️ 👆🏻 Please enter the value from the previous steps**
 
-## Step 2: Get Grafana Cloud connection details
-
-In this step, we will grab the endpoint, username and password you need to send your OpenTelemetry signals to Grafana Cloud:
-
-1.  Go to your Grafana Cloud instance. 
-
-1.  In the side menu, click on **Dashboards**, open the **Field Eng Otel Environment** folder, and navigate to the dashboard **Connection Details**. You can also search for the dashboard by typing "Connection Details" in the search bar.
-
-1.  On the _Connection Details_ dashboard, copy the **OpenTelemetry (OTLP) endpoint** and paste it in the `alloy/run.sh` file, in the `GRAFANA_CLOUD_OTLP_ENDPOINT` environment variable, similar to this:
-
-    ```bash
-    export GRAFANA_CLOUD_OTLP_ENDPOINT="https://..."
-    ```
-
-1.  Copy the **OpenTelemetry (OTLP) user ID** and paste it in the `alloy/run.sh` file, in the `GRAFANA_CLOUD_OTLP_USERNAME` environment variable, similar to this:
-
-    ```bash
-    export GRAFANA_CLOUD_OTLP_USERNAME="123456"
-    ```
-
-1.  Next, we'll generate a new Cloud Access Policy token to send to Grafana Cloud. In the Grafana side menu, navigate to **Administration &rarr; Users and access &rarr; Cloud access policies**.
-
-1.  Look for a policy which has a name similar to **xxxx-telemetry-publisher-wsa**, expand the Tokens panel, and click **Add token**.
-
-1.  Give the token a name of your choosing and ensure expiry is set to **No expiry**, then click **Create**.
-
-1.  **Copy** the generated token to your clipboard, and paste it in your `alloy/run.sh` file, placing it in the `GRAFANA_CLOUD_OTLP_PASSWORD` environment variable.
-
-    ```bash
-    export GRAFANA_CLOUD_OTLP_PASSWORD="glc_..."
-    ```
-
-1.  **Save** the file once you're finished editing.
 
 ## Step 2: Run Grafana Alloy
 
@@ -96,8 +62,6 @@ Now we're ready to run Grafana Alloy!
 1.  In the terminal, run the following command to start Grafana Alloy:
 
     ```bash
-    cd /home/project/persisted/alloy
-
     ./run.sh
     ```
 

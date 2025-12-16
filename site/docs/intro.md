@@ -21,15 +21,11 @@ For this workshop, **you'll need to bring**:
 
 - An up-to-date web browser, with JavaScript enabled.
 - Some water, so you can stay hydrated!
-
-The **workshop facilitator will provide** you with the following:
-
-- A personal logon (username and password)
-- A URL to a Grafana Cloud instance - e.g. `https://nnnnnn.grafana.net`
-- A link to access your online development environment
+- Create a github account 
+- Create a free Grafana cloud account 
 
 :::info
-Your logon has been sent to the email address you provided when you signed up. If you haven't received the email, please check your Spam or Junk Mail folder. Or, speak to your facilitator.
+For this workshop we will run the code using github codespace and Grafana cloud
 :::
 
 

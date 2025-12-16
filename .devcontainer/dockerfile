@@ -1,0 +1,35 @@
+# Start from a base image, e.g., Ubuntu
+FROM ubuntu:22.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        ca-certificates \
+        curl \
+        gnupg \
+        wget \
+        openjdk-17-jdk \
+        maven \
+        golang-go && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install k6 load testing CLI using standalone binary (supports ARM64)
+RUN ARCH=$(dpkg --print-architecture) && \
+    if [ "$ARCH" = "arm64" ]; then ARCH="arm64"; else ARCH="amd64"; fi && \
+    curl -fsSL "https://github.com/grafana/k6/releases/latest/download/k6-linux-${ARCH}.tar.gz" -o k6.tar.gz && \
+    tar -xzf k6.tar.gz --strip-components=1 -C /usr/local/bin/ && \
+    rm k6.tar.gz && \
+    chmod +x /usr/local/bin/k6
+
+# Install Grafana Alloy from the official Grafana apt repository.
+RUN mkdir -p /etc/apt/keyrings/ && \
+    wget -q -O - https://apt.grafana.com/gpg.key | gpg --dearmor --yes -o /etc/apt/keyrings/grafana.gpg && \
+    echo "deb [signed-by=/etc/apt/keyrings/grafana.gpg] https://apt.grafana.com stable main" > /etc/apt/sources.list.d/grafana.list && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends alloy && \
+    rm -rf /var/lib/apt/lists/*
+
+ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+ENV GOROOT=/usr/lib/go
+ENV PATH=$PATH:$GOROOT/bin:$JAVA_HOME/bin 
