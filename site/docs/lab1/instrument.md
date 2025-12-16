@@ -53,7 +53,7 @@ Complete the following steps:
 
 1.  Open your virtual development environment.
 
-1.  From the project Explorer pane, expand the project tree and **open the file** `persisted/rolldice/run.sh`.
+1.  From the project Explorer pane, expand the project tree and **open the file** `source/rolldice/run.sh`.
 
     :::tip
     
@@ -114,7 +114,7 @@ Complete the following steps:
 1.  Now, start the application again by opening a new terminal (**Terminal -> New Terminal**) and typing:
 
     ```shell
-    cd persisted/rolldice
+    cd source/rolldice
 
     ./run.sh
     ```
@@ -130,7 +130,7 @@ Complete the following steps:
 1.  Finally, open another new terminal (**Terminal -> New Terminal**), and generate some traffic to the service by running a k6 load test:
 
     ```shell
-    cd persisted/rolldice 
+    cd source/rolldice 
 
     k6 run loadtest.js
     ```

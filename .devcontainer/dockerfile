@@ -1,5 +1,5 @@
 # Start from a base image, e.g., Ubuntu
-FROM ubuntu:22.04
+FROM --platform=linux/amd64 ubuntu:22.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -10,17 +10,21 @@ RUN apt-get update && \
         gnupg \
         wget \
         openjdk-17-jdk \
-        maven \
-        golang-go && \
+        maven && \
     rm -rf /var/lib/apt/lists/*
 
-# Install k6 load testing CLI using standalone binary (supports ARM64)
-RUN ARCH=$(dpkg --print-architecture) && \
-    if [ "$ARCH" = "arm64" ]; then ARCH="arm64"; else ARCH="amd64"; fi && \
-    curl -fsSL "https://github.com/grafana/k6/releases/latest/download/k6-linux-${ARCH}.tar.gz" -o k6.tar.gz && \
-    tar -xzf k6.tar.gz --strip-components=1 -C /usr/local/bin/ && \
-    rm k6.tar.gz && \
-    chmod +x /usr/local/bin/k6
+# Install Go 1.23 (latest stable, meets 1.22+ requirement)
+RUN curl -fsSL https://go.dev/dl/go1.23.4.linux-amd64.tar.gz -o go.tar.gz && \
+    tar -C /usr/local -xzf go.tar.gz && \
+    rm go.tar.gz 
+
+# Add official k6 apt repository and install k6 load testing CLI.
+RUN mkdir -p /usr/share/keyrings && \
+    curl -fsSL https://dl.k6.io/key.gpg | gpg --dearmor --yes -o /usr/share/keyrings/k6-archive-keyring.gpg && \
+    echo "deb [signed-by=/usr/share/keyrings/k6-archive-keyring.gpg] https://dl.k6.io/deb stable main" > /etc/apt/sources.list.d/k6.list && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends k6 && \
+    rm -rf /var/lib/apt/lists/*     
 
 # Install Grafana Alloy from the official Grafana apt repository.
 RUN mkdir -p /etc/apt/keyrings/ && \
@@ -28,8 +32,8 @@ RUN mkdir -p /etc/apt/keyrings/ && \
     echo "deb [signed-by=/etc/apt/keyrings/grafana.gpg] https://apt.grafana.com stable main" > /etc/apt/sources.list.d/grafana.list && \
     apt-get update && \
     apt-get install -y --no-install-recommends alloy && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/* 
 
 ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
-ENV GOROOT=/usr/lib/go
+ENV GOROOT=/usr/local/go
 ENV PATH=$PATH:$GOROOT/bin:$JAVA_HOME/bin 

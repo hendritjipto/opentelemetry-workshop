@@ -49,12 +49,10 @@ Let's run the _gameserver_:
 1.  Open a new terminal (**Terminal -> New Terminal**), and type the following to copy the second project into your persistent workspace, then enter the new directory:
 
     ```
-    cp -r /opt/gameserver /home/project/persisted/
-
-    cd /home/project/persisted/gameserver
+     cd /source/gameserver
     ```
 
-1.  In the project Explorer tree, find the file `persisted/gameserver/otel.go` and open it, to inspect the code.
+1.  In the project Explorer tree, find the file `source/gameserver/otel.go` and open it, to inspect the code.
 
     :::tip
 
@@ -68,7 +66,7 @@ Let's run the _gameserver_:
 
 1.  Let's set our OpenTelemetry _resource attributes_ for this application.
 
-    Open the run script, `persisted/gameserver/run.sh`. **Just before** the final line (`go run .`), insert these lines, replacing `<your chosen namespace>` with the same namespace you chose in the previous lab:
+    Open the run script, `source/gameserver/run.sh`. **Just before** the final line (`go run .`), insert these lines, replacing `<your chosen namespace>` with the same namespace you chose in the previous lab:
 
     ```shell
     export NAMESPACE="<your chosen namespace>" 
@@ -78,7 +76,7 @@ Let's run the _gameserver_:
 1.  In an unused terminal, change to the `persisted/gameserver` directory and run _gameserver_. It might take a minute or two to start, as your code will need to be compiled:
 
     ```
-    cd /home/project/persisted/gameserver
+    cd /source/gameserver
 
     ./run.sh
     ```
@@ -101,7 +99,7 @@ Let's run the _gameserver_:
     In a new terminal, run the following commands:
 
     ```
-    cd /home/project/persisted/gameserver
+    cd /source/gameserver
 
     k6 run loadtest.js
     ```
