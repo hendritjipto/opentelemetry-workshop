@@ -1,0 +1,10 @@
+{
+  "title": {
+    "message": "OpenTelemetry 입문 워크숍 - Grafana Labs",
+    "description": "The title in the navbar"
+  },
+  "item.label.GitHub": {
+    "message": "GitHub",
+    "description": "Navbar item with label GitHub"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "link.title.Community": {
+    "message": "コミュニティ",
+    "description": "The title of the footer link group Community"
+  },
+  "link.item.label.Stack Overflow": {
+    "message": "Stack Overflow",
+    "description": "The label of footer link with label Stack Overflow"
+  },
+  "link.item.label.Discord": {
+    "message": "Discord",
+    "description": "The label of footer link with label Discord"
+  },
+  "link.item.label.Twitter": {
+    "message": "Twitter",
+    "description": "The label of footer link with label Twitter"
+  },
+  "link.title.More": {
+    "message": "その他",
+    "description": "The title of the footer link group More"
+  },
+  "link.item.label.GitHub": {
+    "message": "GitHub",
+    "description": "The label of footer link with label GitHub"
+  },
+  "copyright": {
+    "message": "Copyright © {year} Grafana Labs. Docusaurus と恐竜によって構築されました。",
+    "description": "The footer copyright"
+  }
+}
